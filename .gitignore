@@ -10,4 +10,5 @@ venv/
 *.xlsx
 
 # Jupyter Notebook
+*.ipynb
 .ipynb_checkpoints
