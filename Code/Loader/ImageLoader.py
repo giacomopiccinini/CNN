@@ -8,7 +8,7 @@ class ImageLoader(Sequence):
     
     """ Read images from path, storing them in Image class"""
     
-    def __init__(self, directory, batch_size, extension="jpg", maximum=None, minimum=None):
+    def __init__(self, directory, batch_size=32, extension="jpg", maximum=None, minimum=None):
         
         """ Constructor for ImageLoader class"""
 
@@ -19,7 +19,7 @@ class ImageLoader(Sequence):
         pool = mp.Pool(mp.cpu_count())
 
         # Load images
-        data = mp.map(Image.from_path, paths)
+        data = pool.map(Image.from_path, paths)
 
         # Close pool
         pool.close()
@@ -62,8 +62,8 @@ class ImageLoader(Sequence):
         """ Get maximum and minimum for all images in dataset"""
 
         # Get maximum and minimum
-        maximum = np.max(np.array(self.data))
-        minimum = np.min(np.array(self.data))
+        maximum = np.max(np.array([image.tensor for image in self.data]))
+        minimum = np.min(np.array([image.tensor for image in self.data]))
 
         return maximum, minimum
 
