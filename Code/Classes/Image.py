@@ -170,3 +170,21 @@ class Image():
         plt.imshow(self.tensor[y_min: y_max, x_min: x_max])
         plt.axis("off")
         plt.show()
+
+
+    @classmethod
+    def normalise(cls, image, maximum, minimum):
+
+        # Load tensor from image
+        tensor = image.tensor
+
+        # Find the span
+        span = float(maximum - minimum)
+
+        # Convert to float
+        tensor = tensor.astype('float32')
+
+        # Compute normalised
+        normalised = (tensor - minimum) / span
+
+        return cls.from_tensor(normalised)
