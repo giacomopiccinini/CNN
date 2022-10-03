@@ -1,5 +1,7 @@
 import numpy as np
 import multiprocessing as mp
+import yaml
+from pathlib import Path
 from tensorflow.keras.utils import Sequence
 from Code.Classes.Image import Image
 
@@ -7,7 +9,7 @@ class ImageLoader(Sequence):
     
     """ Read images from path, storing them in Image class"""
     
-    def __init__(self, paths, batch_size=32, maximum=None, minimum=None):
+    def __init__(self, paths, set_type="train", batch_size=32, maximum=None, minimum=None):
         
         """ Constructor for ImageLoader class"""
 
@@ -25,6 +27,8 @@ class ImageLoader(Sequence):
         self.batch_size = batch_size
         self.data       = data
         self.number     = len(paths)
+        self.names      = [Path(path).name for path in self.paths]
+        self.set_type   = set_type
 
         # Set maximum and minimum if not fixed
         if maximum==None or minimum==None:
@@ -62,6 +66,18 @@ class ImageLoader(Sequence):
         minimum = np.min(np.array([image.tensor for image in self.data]))
 
         return maximum, minimum
+
+    def save_split(self):
+
+        """ Save the splitting of data """
+
+        with open(f"Split/{self.set_type}.yaml", "w") as file:
+
+            split = {"files" : self.names}
+
+            yaml.dump(split, file)
+
+    
 
 
     
