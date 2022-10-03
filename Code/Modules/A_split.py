@@ -19,8 +19,13 @@ def split(test_size=0.2, validation_size=0.2, seed=42):
     images_train, images_validation, labels_train, labels_validation = train_test_split(images_train, labels_train, test_size=validation_size, random_state=seed)
 
     # Initialise datasets
-    train_set      = ImageLoader(images_train)
-    validation_set = ImageLoader(images_validation, maximum=train_set.maximum, minimum=train_set.minimum)
-    test_set       = ImageLoader(images_test, maximum=train_set.maximum, minimum=train_set.minimum)
+    train_set      = ImageLoader(images_train, set_type="train")
+    validation_set = ImageLoader(images_validation, set_type="validation", maximum=train_set.maximum, minimum=train_set.minimum)
+    test_set       = ImageLoader(images_test, set_type="test", maximum=train_set.maximum, minimum=train_set.minimum)
+
+    # Save splitting in .yaml files
+    train_set.save_split()
+    validation_set.save_split()
+    test_set.save_split()
 
     return (train_set, labels_train), (validation_set, labels_validation), (test_set, labels_test)
