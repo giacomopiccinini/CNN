@@ -1,19 +1,15 @@
 import numpy as np
 import multiprocessing as mp
 from tensorflow.keras.utils import Sequence
-from glob import glob
 from Code.Classes.Image import Image
 
 class ImageLoader(Sequence):
     
     """ Read images from path, storing them in Image class"""
     
-    def __init__(self, directory, batch_size=32, extension="jpg", maximum=None, minimum=None):
+    def __init__(self, paths, batch_size=32, maximum=None, minimum=None):
         
         """ Constructor for ImageLoader class"""
-
-        # Find path of all images
-        paths = glob(f"{directory}/*.{extension}")
 
         # Initiate pool for multiprocessing (for speeding up reading of images)
         pool = mp.Pool(mp.cpu_count())
