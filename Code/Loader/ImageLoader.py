@@ -50,10 +50,10 @@ class ImageLoader(Sequence):
         batch = self.data[i*self.batch_size : (i + 1)*self.batch_size]
 
         # Normalise images
-        normalised = [Image.normalise(image, self.maximum, self.minimum) for image in batch]
+        normalised_images = [Image.normalise(image, self.maximum, self.minimum) for image in batch]
 
         # Retrieve images in the form of tensor from the batch
-        batch = np.array([tensor for tensor in normalised.tensor])
+        batch = np.array([normalised_image.tensor for normalised_image in normalised_images])
                 
         return batch, batch  
 
