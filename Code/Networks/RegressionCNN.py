@@ -25,35 +25,35 @@ def RegressionCNN(width, height, depth, filters=(16, 32, 64), regress=False):
     for filter in filters:
 
         # Apply 2D convolution with ReLU activation function
-		x = Conv2D(filter, kernel_size=(3, 3), activation=ReLU, padding="same")(x)
+        x = Conv2D(filter, kernel_size=(3, 3), activation=ReLU, padding="same")(x)
 
         # Apply batch normalisation (specify axis = -1 if assuming TensorFlow/channels-last ordering)
-		x = BatchNormalization(axis=-1)(x)
+        x = BatchNormalization(axis=-1)(x)
 
         # Apply Max Pooling
-		x = MaxPooling2D(pool_size=(2, 2))(x)
+        x = MaxPooling2D(pool_size=(2, 2))(x)
 
     # Flatten the tensor before applying the dense layer
-	x = Flatten()(x)
+    x = Flatten()(x)
 
     # Apply dense layer (units = dimensionality of the output layer)
-	x = Dense(units=16, activation=ReLU)(x)
+    x = Dense(units=16, activation=ReLU)(x)
 
     # Apply batch normalisation
-	x = BatchNormalization(axis=-1)(x)
+    x = BatchNormalization(axis=-1)(x)
 
     # Add drop-out layer
-	x = Dropout(0.5)(x)
+    x = Dropout(0.5)(x)
 
 	# apply another FC layer, this one to match the number of nodes
 	# coming out of the MLP
-	x = Dense(4, activation=ReLU)(x)
+    x = Dense(4, activation=ReLU)(x)
 
 	# Add regression layer if needed
-	if regress:
-		x = Dense(1, activation="linear")(x)
+    if regress:
+        x = Dense(1, activation="linear")(x)
 
 	# Construct the CNN
-	model = Model(input_image, x)
+    model = Model(input_image, x)
 
-	return model
+    return model
