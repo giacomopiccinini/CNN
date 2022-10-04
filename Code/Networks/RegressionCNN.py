@@ -1,7 +1,7 @@
-from tensorflow.keras.layers import Input, Conv2D, ReLU, BatchNormalization, MaxPooling2D, Flatten, Dense
+from tensorflow.keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.models import Model
 
-def RegressionCNN(width, height, depth, filters=(16, 32, 64), regress=False):
+def RegressionCNN(width, height, depth, filters=(4, 8, 16, 32, 64, 128, 256, 512), regress=False):
 
     """ Construct CNN for Regression.
 
@@ -25,7 +25,7 @@ def RegressionCNN(width, height, depth, filters=(16, 32, 64), regress=False):
     for filter in filters:
 
         # Apply 2D convolution with ReLU activation function
-        x = Conv2D(filter, kernel_size=(3, 3), activation=ReLU, padding="same")(x)
+        x = Conv2D(filter, kernel_size=(3, 3), activation="relu", padding="same")(x)
 
         # Apply batch normalisation (specify axis = -1 if assuming TensorFlow/channels-last ordering)
         x = BatchNormalization(axis=-1)(x)
@@ -37,7 +37,7 @@ def RegressionCNN(width, height, depth, filters=(16, 32, 64), regress=False):
     x = Flatten()(x)
 
     # Apply dense layer (units = dimensionality of the output layer)
-    x = Dense(units=16, activation=ReLU)(x)
+    x = Dense(units=16, activation="relu")(x)
 
     # Apply batch normalisation
     x = BatchNormalization(axis=-1)(x)
@@ -47,7 +47,7 @@ def RegressionCNN(width, height, depth, filters=(16, 32, 64), regress=False):
 
 	# apply another FC layer, this one to match the number of nodes
 	# coming out of the MLP
-    x = Dense(4, activation=ReLU)(x)
+    #x = Dense(4, activation="relu")(x)
 
 	# Add regression layer if needed
     if regress:
