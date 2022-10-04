@@ -22,7 +22,9 @@ def parse():
     # Add arguments
     train_group.add_argument("--loss", const="MAPE", default="MAPE", nargs='?', type=str, choices=["MAPE"], help="Loss function to be used at training time")
     train_group.add_argument("--optimizer", const="Adam", default="Adam", nargs='?', type=str, choices=["Adam", "SGD"], help="Optimizer to be used at training time")
-    train_group.add_argument("--lr", const=0.1, default=0.1, nargs='?', type=float, help="Learning rate")
+    train_group.add_argument("--learning_rate", const=0.1, default=0.1, nargs='?', type=float, help="Learning rate")
+    train_group.add_argument("--filters", const=(4, 8, 16, 32, 64, 128, 256), default=(4, 8, 16, 32, 64, 128, 256), nargs='?', type=tuple, help="Filters to apply in CNN")
+    train_group.add_argument("--regress", const=True, default=True, nargs='?', type=bool, help="Whether to apply or not regression as last layer")
 
     # Parse arguments
     args = parser.parse_args()
