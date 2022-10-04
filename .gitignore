@@ -13,3 +13,5 @@ venv/
 # Jupyter Notebook
 *.ipynb
 .ipynb_checkpoints
+
+Split/*.yaml
