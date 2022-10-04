@@ -1,4 +1,4 @@
-from tf.keras.losses import MeanAbsolutePercentageError
+from tensorflow.keras.losses import MeanAbsolutePercentageError
 import logging
 
 def loss(**kwargs):
