@@ -29,6 +29,7 @@ class ImageLoader(Sequence):
         self.number     = len(paths)
         self.names      = [Path(path).name for path in self.paths]
         self.set_type   = set_type
+        self.shape      = self.check_shape()
 
         # Set maximum and minimum if not fixed
         if maximum==None or minimum==None:
@@ -56,6 +57,25 @@ class ImageLoader(Sequence):
         batch = np.array([normalised_image.tensor for normalised_image in normalised_images])
                 
         return batch, batch  
+
+    def check_shape(self):
+
+        """ Check that all images in dataset have the same shape. If not, raise an error"""
+
+        # Retrieve shapes
+        shapes = np.array([tensor.shape for tensor in self.data])
+
+        # Check unicity
+        shape = np.unique(shapes)
+
+        # If more than one value
+        if len(shape) > 1:
+            
+            raise ValueError(f"Images in {self.set_type} set do not have the same shape")
+
+        return shape
+
+
 
     def get_extrema(self):
 
