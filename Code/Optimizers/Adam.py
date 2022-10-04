@@ -1,3 +1,4 @@
+import logging
 from tensorflow.keras.optimizers import Adam
 
 def optimizer(**kwargs):
@@ -7,6 +8,9 @@ def optimizer(**kwargs):
     try:
         # Create Adam optimizer if correct keywords are passed
         Optimizer   = Adam(**kwargs)
+
+        # Log the loading
+        logging.info("Adam optimizer has been loaded")
 
         # Return the optimizer
         return Optimizer
