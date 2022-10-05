@@ -12,13 +12,13 @@ if __name__ == '__main__':
     args = parse()
 
     logging.info("Loading datasets")
-    train_set, validation_set, test_set = split(args["Split"])
+    train_set, validation_set, test_set = split(args["Split"], feature=args["Project"].feature)
     shape = train_set.shape
 
     logging.info("Preparing network")
     CNN = prepare(args=args["Prepare"], shape=shape)
 
     logging.info("Training network")
-    train(CNN, train_set, validation_set, args["Train"])
+    train(CNN, train_set, validation_set, args)
 
 
