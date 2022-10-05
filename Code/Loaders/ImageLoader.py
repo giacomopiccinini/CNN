@@ -10,7 +10,7 @@ class ImageLoader(Sequence):
     
     """ Read images from path, storing them in Image class"""
     
-    def __init__(self, data_paths, label_paths, set_type="train", batch_size=32, maximum=None, minimum=None):
+    def __init__(self, data_paths, label_paths, set_type="train", batch_size=32, maximum=None, minimum=None, feature=None):
         
         """ Constructor for ImageLoader class"""
 
@@ -20,15 +20,15 @@ class ImageLoader(Sequence):
         # Load images
         data = pool.map(Image.from_path, data_paths)
 
-        # Load labels
-        labels = pool.map(Label.__init__, label_paths)
-
         # Close pool
         pool.close()
 
+        # Load labels
+        labels = [Label(label_path) for label_path in label_paths]
+
         # Store details
         self.data_paths  = data_paths
-        self.label_paths = data_paths
+        self.label_paths = label_paths
 
         self.data   = data
         self.labels = labels
@@ -37,6 +37,7 @@ class ImageLoader(Sequence):
         self.number     = len(data_paths)
         self.names      = [Path(path).name for path in self.data_paths]
         self.set_type   = set_type
+        self.feature    = feature
 
         self.set_shape()
 
@@ -60,13 +61,19 @@ class ImageLoader(Sequence):
         data_batch  = self.data[i*self.batch_size : (i + 1)*self.batch_size]
         label_batch = self.labels[i*self.batch_size : (i + 1)*self.batch_size]
 
+        # Restrict to particular feature (yaml case)
+        if self.feature != None:
+            label_batch = [label.label[self.feature] for label in label_batch]
+        else:
+            label_batch = [label.label for label in label_batch]
+
         # Normalise images
         normalised_images = [Image.normalise(image, self.maximum, self.minimum) for image in data_batch]
 
         # Retrieve images in the form of tensor from the batch
         data_batch  = np.array([normalised_image.tensor for normalised_image in normalised_images])
                 
-        return data_batch, label_batch  
+        return data_batch, np.array(label_batch)
 
     def set_shape(self):
 
