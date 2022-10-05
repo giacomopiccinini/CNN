@@ -10,15 +10,16 @@ if __name__ == '__main__':
 
     logging.info("Parsing requests")
     args = parse()
+    print(args)
 
     logging.info("Loading datasets")
-    (train_set, labels_train), (validation_set, labels_validation), (test_set, labels_test) = split(args["Split"])
-    shape = train_set.shape
+    #train_set, validation_set, test_set = split(args["Split"])
+    #shape = train_set.shape
 
     logging.info("Preparing network")
-    CNN = prepare(args=args["Prepare"], shape=shape)
+    #CNN = prepare(args=args["Prepare"], shape=shape)
 
     logging.info("Training network")
-    train(CNN, train_set, labels_train, validation_set, labels_validation, args["Train"])
+    #train(CNN, train_set, validation_set, args["Train"])
 
 
