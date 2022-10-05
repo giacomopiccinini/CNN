@@ -8,6 +8,13 @@ def parse():
     # Initiate argparser
     parser = ArgumentParser()
 
+    # Add group for general info on the project
+    project_group = parser.add_argument_group("Project", "Arguments for project options")
+
+    # Add arguments
+    project_group.add_argument("--project", const="Rivertrace", default="Rivertrace", nargs='?', type=str, help="String representing the name of the project (for logging purposes")
+    project_group.add_argument("--feature", const="Ferric Oxide PPM", default="Ferric Oxide PPM", nargs='?', type=str, help="String representing the feature to be considered")
+
     # Add group for splitting
     split_group = parser.add_argument_group("Split", "Arguments for splitting options")
 
@@ -15,7 +22,6 @@ def parse():
     split_group.add_argument("--test_size", const=0.2, default=0.2, nargs='?', type=float, help="Float in (0,1) representing the percentage of sample to be kept for testing")
     split_group.add_argument("--validation_size", const=0.2, default=0.2, nargs='?', type=float, help="Float in (0,1) representing the percentage of sample to be kept for validation")
     split_group.add_argument("--seed", const=42, default=42, nargs='?', type=int, help="Integer representing the seed used in train/test/validation splitting")
-    split_group.add_argument("--feature", const="Ferric Oxide PPM", default="Ferric Oxide PPM", nargs='?', type=str, help="String representing the feature to be considered")
     split_group.add_argument("--batch",  const=32,  default=32,  nargs='?', type=int, help="Integer for batch size")
 
     # Add group for train
