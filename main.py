@@ -10,7 +10,6 @@ if __name__ == '__main__':
 
     logging.info("Parsing requests")
     args = parse()
-    print(args)
 
     logging.info("Loading datasets")
     train_set, validation_set, test_set = split(args["Split"])
