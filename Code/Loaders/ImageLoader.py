@@ -4,12 +4,13 @@ import yaml
 from pathlib import Path
 from tensorflow.keras.utils import Sequence
 from Code.Classes.Image import Image
+from Code.Classes.Label import Label
 
 class ImageLoader(Sequence):
     
     """ Read images from path, storing them in Image class"""
     
-    def __init__(self, paths, set_type="train", batch_size=32, maximum=None, minimum=None):
+    def __init__(self, data_paths, label_paths, set_type="train", batch_size=32, maximum=None, minimum=None):
         
         """ Constructor for ImageLoader class"""
 
@@ -17,19 +18,27 @@ class ImageLoader(Sequence):
         pool = mp.Pool(mp.cpu_count())
 
         # Load images
-        data = pool.map(Image.from_path, paths)
+        data = pool.map(Image.from_path, data_paths)
+
+        # Load labels
+        labels = pool.map(Label.__init__, label_paths)
 
         # Close pool
         pool.close()
 
         # Store details
-        self.paths      = paths
+        self.data_paths  = data_paths
+        self.label_paths = data_paths
+
+        self.data   = data
+        self.labels = labels
+
         self.batch_size = batch_size
-        self.data       = data
-        self.number     = len(paths)
-        self.names      = [Path(path).name for path in self.paths]
+        self.number     = len(data_paths)
+        self.names      = [Path(path).name for path in self.data_paths]
         self.set_type   = set_type
-        self.shape      = self.check_shape()
+
+        self.set_shape()
 
         # Set maximum and minimum if not fixed
         if maximum==None or minimum==None:
@@ -48,32 +57,33 @@ class ImageLoader(Sequence):
         """ Return the images in the i-th batch """
         
         # Find paths for the i-th batch
-        batch = self.data[i*self.batch_size : (i + 1)*self.batch_size]
+        data_batch  = self.data[i*self.batch_size : (i + 1)*self.batch_size]
+        label_batch = self.labels[i*self.batch_size : (i + 1)*self.batch_size]
 
         # Normalise images
-        normalised_images = [Image.normalise(image, self.maximum, self.minimum) for image in batch]
+        normalised_images = [Image.normalise(image, self.maximum, self.minimum) for image in data_batch]
 
         # Retrieve images in the form of tensor from the batch
-        batch = np.array([normalised_image.tensor for normalised_image in normalised_images])
+        data_batch  = np.array([normalised_image.tensor for normalised_image in normalised_images])
                 
-        return batch, batch  
+        return data_batch, label_batch  
 
-    def check_shape(self):
+    def set_shape(self):
 
         """ Check that all images in dataset have the same shape. If not, raise an error"""
 
         # Retrieve shapes
-        shapes = np.array([tensor.shape for tensor in self.data])
+        shapes = np.array([tensor.shape for tensor in list(self.data)])
 
         # Check unicity
         shape = np.unique(shapes)
 
         # If more than one value
-        if len(shape) > 1:
+        if shape.ndim > 1:
             
-            raise ValueError(f"Images in {self.set_type} set do not have the same shape")
+            raise ValueError("Images in dataset do not have the same shape")
 
-        return shape
+        self.shape = shape
 
 
 
