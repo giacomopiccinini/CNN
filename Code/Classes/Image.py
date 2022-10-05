@@ -21,7 +21,7 @@ class Image():
         self.grey   = grey
         self.path   = path
         self.name   = name
-        self.shape  = self.tensor.shape 
+        self.shape  = tuple(tensor.shape)
         
 
     # Initialise from path
