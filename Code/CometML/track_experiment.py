@@ -21,7 +21,12 @@ def track(args):
             continue
 
     # Instantiate experiment
-    experiment = Experiment(project_name=args["Project"].project)
+    experiment = Experiment(project_name=args["Project"].project, 
+    auto_param_logging=True, 
+    auto_metric_logging=True,
+    auto_histogram_weight_logging=True,
+    auto_histogram_gradient_logging=True,
+    auto_histogram_activation_logging=True,)
 
     # Add tag
     experiment.add_tag(args["Project"].feature)
