@@ -15,6 +15,8 @@ def parse():
     split_group.add_argument("--test_size", const=0.2, default=0.2, nargs='?', type=float, help="Float in (0,1) representing the percentage of sample to be kept for testing")
     split_group.add_argument("--validation_size", const=0.2, default=0.2, nargs='?', type=float, help="Float in (0,1) representing the percentage of sample to be kept for validation")
     split_group.add_argument("--seed", const=42, default=42, nargs='?', type=int, help="Integer representing the seed used in train/test/validation splitting")
+    split_group.add_argument("--feature", const="Ferric Oxide PPM", default="Ferric Oxide PPM", nargs='?', type=str, help="String representing the feature to be considered")
+    split_group.add_argument("--batch",  const=32,  default=32,  nargs='?', type=int, help="Integer for batch size")
 
     # Add group for train
     prepare_group = parser.add_argument_group("Prepare", "Arguments for network preparation options")
@@ -31,7 +33,6 @@ def parse():
 
     # Add arguments
     train_group.add_argument("--epochs", const=200, default=200, nargs='?', type=int, help="Integer for training epochs")
-    train_group.add_argument("--batch",  const=32,  default=32,  nargs='?', type=int, help="Integer for batch size")
 
     # Parse arguments
     args = parser.parse_args()
