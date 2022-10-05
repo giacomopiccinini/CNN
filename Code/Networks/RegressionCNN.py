@@ -1,7 +1,8 @@
+from xml.etree.ElementTree import TreeBuilder
 from tensorflow.keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.models import Model
 
-def RegressionCNN(shape, filters=(4, 8, 16, 32, 64, 128, 256, 512), regress=False):
+def RegressionCNN(shape, filters=(4, 8, 16, 32, 64, 128, 256, 512), regress=True):
 
     """ Construct CNN for Regression.
 

@@ -13,13 +13,13 @@ if __name__ == '__main__':
     print(args)
 
     logging.info("Loading datasets")
-    #train_set, validation_set, test_set = split(args["Split"])
-    #shape = train_set.shape
+    train_set, validation_set, test_set = split(args["Split"])
+    shape = train_set.shape
 
     logging.info("Preparing network")
-    #CNN = prepare(args=args["Prepare"], shape=shape)
+    CNN = prepare(args=args["Prepare"], shape=shape)
 
     logging.info("Training network")
-    #train(CNN, train_set, validation_set, args["Train"])
+    train(CNN, train_set, validation_set, args["Train"])
 
 
