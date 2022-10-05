@@ -29,7 +29,8 @@ def list_callbacks(experiment, train, validation):
     earlystopping = EarlyStopping(patience = 10)
 
     # Define Comet callback
-    comet = Comet(train=train, validation=validation, experiment=experiment)
+    #comet = Comet(train=train, validation=validation, experiment=experiment)
+    comet = Comet(experiment=experiment)
 
     # Unite callbacks
     callbacks = [checkpoint, tensorboard_callback, earlystopping, comet]

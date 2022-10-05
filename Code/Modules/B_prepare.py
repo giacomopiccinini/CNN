@@ -16,7 +16,7 @@ def prepare(args, shape):
     CNN = RegressionCNN(shape=new_shape, filters=args.filters, regress=args.regress)
 
     # Compile and summarise model
-    CNN.compile(optimizer = Optimizer, loss = Loss)
+    CNN.compile(optimizer = Optimizer, loss = Loss, metrics=["mse"])
     CNN.summary()
 
     return CNN
