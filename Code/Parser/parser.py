@@ -17,14 +17,21 @@ def parse():
     split_group.add_argument("--seed", const=42, default=42, nargs='?', type=int, help="Integer representing the seed used in train/test/validation splitting")
 
     # Add group for train
+    prepare_group = parser.add_argument_group("Prepare", "Arguments for network preparation options")
+
+    # Add arguments
+    prepare_group.add_argument("--loss", const="MAPE", default="MAPE", nargs='?', type=str, choices=["MAPE"], help="Loss function to be used at training time")
+    prepare_group.add_argument("--optimizer", const="Adam", default="Adam", nargs='?', type=str, choices=["Adam", "SGD"], help="Optimizer to be used at training time")
+    prepare_group.add_argument("--learning_rate", const=0.1, default=0.1, nargs='?', type=float, help="Learning rate")
+    prepare_group.add_argument("--filters", const=(4, 8, 16, 32, 64, 128, 256), default=(4, 8, 16, 32, 64, 128, 256), nargs='?', type=tuple, help="Filters to apply in CNN")
+    prepare_group.add_argument("--regress", const=True, default=True, nargs='?', type=bool, help="Whether to apply or not regression as last layer")
+
+    # Add group for train
     train_group = parser.add_argument_group("Train", "Arguments for training options")
 
     # Add arguments
-    train_group.add_argument("--loss", const="MAPE", default="MAPE", nargs='?', type=str, choices=["MAPE"], help="Loss function to be used at training time")
-    train_group.add_argument("--optimizer", const="Adam", default="Adam", nargs='?', type=str, choices=["Adam", "SGD"], help="Optimizer to be used at training time")
-    train_group.add_argument("--learning_rate", const=0.1, default=0.1, nargs='?', type=float, help="Learning rate")
-    train_group.add_argument("--filters", const=(4, 8, 16, 32, 64, 128, 256), default=(4, 8, 16, 32, 64, 128, 256), nargs='?', type=tuple, help="Filters to apply in CNN")
-    train_group.add_argument("--regress", const=True, default=True, nargs='?', type=bool, help="Whether to apply or not regression as last layer")
+    train_group.add_argument("--epochs", const=200, default=200, nargs='?', type=int, help="Integer for training epochs")
+    train_group.add_argument("--batch",  const=32,  default=32,  nargs='?', type=int, help="Integer for batch size")
 
     # Parse arguments
     args = parser.parse_args()

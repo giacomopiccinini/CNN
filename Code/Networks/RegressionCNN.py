@@ -1,7 +1,7 @@
 from tensorflow.keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.models import Model
 
-def RegressionCNN(width, height, depth, filters=(4, 8, 16, 32, 64, 128, 256, 512), regress=False):
+def RegressionCNN(shape, filters=(4, 8, 16, 32, 64, 128, 256, 512), regress=False):
 
     """ Construct CNN for Regression.
 
@@ -16,7 +16,7 @@ def RegressionCNN(width, height, depth, filters=(4, 8, 16, 32, 64, 128, 256, 512
     """
 
     # Instantiate a Keras tensor (it should be a n_xpixel x n_ypixel x n_channel tensor)
-    input_image = Input(shape = (height, width, depth))
+    input_image = Input(shape = shape)
 
     # At first, the tensor is simply the input
     x = input_image
