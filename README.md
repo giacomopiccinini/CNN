@@ -19,21 +19,37 @@ However, there are a number of (hyper) parameters that can be passed to specify 
 
 ```
 [-h] # Print Help
+
 [--project [PROJECT]] # String representing the name of the project (for logging purposes)
+
 [--feature [FEATURE]] # String representing the feature to be considered (in the case of labels in yaml file)
-[--test_size [TEST_SIZE]] # Float in (0,1) representing the percentage of sample to be kept for testing
-[--validation_size [VALIDATION_SIZE]] # Float in (0,1) representing the percentage of sample to be kept for validation
+
+[--test_size [TEST_SIZE]] # Float in (0,1) representing the percentage to be kept for testing
+
+[--validation_size [VALIDATION_SIZE]] # Float in (0,1) representing the percentageto be kept for validation
+
 [--seed [SEED]] # Integer representing the seed used in train/test/validation splitting
+
 [--batch [BATCH]] # Integer for batch size
+
 [--loss [{MAE,MSE,MAPE}]] # Loss function to be used at training time
+
 [--optimizer [{Adam,SGD}]] # Optimizer to be used at training time
+
 [--learning_rate [LEARNING_RATE]] # Learning rate for all types of optimizer
+
 [--filters [FILTERS]] # Tuple with dimension of filters to apply in the CNN
+
 [--regress [REGRESS]] # Whether to apply or not regression as last layer
+
 [--beta_1 [BETA_1]] # Beta_1 parameter for Adam
+
 [--beta_2 [BETA_2]] # Beta_1 parameter for Adam
+
 [--epsilon [EPSILON]] # Epsilon parameter for Adam
+
 [--momentum [MOMENTUM]] # Momentum parameter for SGD
+
 [--epochs [EPOCHS]] # Integer for training epochs
 
 ```
