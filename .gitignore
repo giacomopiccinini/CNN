@@ -1,23 +1,19 @@
-# Byte-compiled / optimized / DLL files
+# Cache
 __pycache__/
-
-# Virtual environments
-venv/
-
-# Data files not to be uploaded
-*.pnggit 
-*.jpg
-*.xlsx
-*.yaml
-
-# Jupyter Notebook
-*.ipynb
 .ipynb_checkpoints
 
+# Virtual Environment
+venv/
+
+# Images
+*.png
+*.jpg
+
+Logs/
+Output/*/
 Split/*.yaml
 
-# Ignore logs
-Logs/
+*.yaml
+*.ipynb
 
-# Ignore Output
-Output/*/
+Models/*
