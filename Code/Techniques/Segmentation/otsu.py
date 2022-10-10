@@ -5,7 +5,7 @@ import pyclesperanto_prototype as cle
 
 def otsu_voronoi(image):
 
-    """ Segment image using Voronoi-Otsu """
+    """Segment image using Voronoi-Otsu"""
 
     # Segment image using pyclesperanto implementation of Voronoi-Otsu algorithm
     # Parameter might need fixing depending on the case at hand
@@ -15,12 +15,12 @@ def otsu_voronoi(image):
     segmented = np.array(segmented)
 
     # Ensure the image is consistent with data-type of masks
-    segmented = segmented.astype('uint8')
+    segmented = segmented.astype("uint8")
 
     # Define kernel to be used for dilation
-    kernel = np.ones((3,3), np.uint8)
+    kernel = np.ones((3, 3), np.uint8)
 
     # Dilate masks so as to fill possible gaps
-    segmented = cv2.dilate(segmented, kernel, iterations = 3)
+    segmented = cv2.dilate(segmented, kernel, iterations=3)
 
     return segmented

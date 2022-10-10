@@ -1,9 +1,16 @@
 import cv2
 
-def adaptive_threshold(tensor, adaptiveMethod=cv2.ADAPTIVE_THRESH_MEAN_C, thresholdType=cv2.THRESH_BINARY_INV, blockSize=23, C=6):
 
-    """ Apply adaptive thresholding to image.
-    
+def adaptive_threshold(
+    tensor,
+    adaptiveMethod=cv2.ADAPTIVE_THRESH_MEAN_C,
+    thresholdType=cv2.THRESH_BINARY_INV,
+    blockSize=23,
+    C=6,
+):
+
+    """Apply adaptive thresholding to image.
+
     maxValue: Value to be set to part that are segmented (set it to one if [0,1] output is needed)
 
     adaptiveMethod: Method to be used when performing thresholding. Options: [cv2.ADAPTIVE_THRESH_MEAN_C, cv2.ADAPTIVE_THRESH_GAUSSIAN_C]
@@ -14,7 +21,13 @@ def adaptive_threshold(tensor, adaptiveMethod=cv2.ADAPTIVE_THRESH_MEAN_C, thresh
 
     C: Constant subtracted from the mean or weighted mean. Normally, it is positive but may be zero or negative as well."""
 
-
-    thresholded = cv2.adaptiveThreshold(tensor, maxValue=1, adaptiveMethod=adaptiveMethod, thresholdType=thresholdType, blockSize=blockSize, C=C)
+    thresholded = cv2.adaptiveThreshold(
+        tensor,
+        maxValue=1,
+        adaptiveMethod=adaptiveMethod,
+        thresholdType=thresholdType,
+        blockSize=blockSize,
+        C=C,
+    )
 
     return thresholded

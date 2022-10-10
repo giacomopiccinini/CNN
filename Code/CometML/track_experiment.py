@@ -1,8 +1,9 @@
 from comet_ml import Experiment
 
+
 def track(args):
 
-    """ Track experiments on CometML """
+    """Track experiments on CometML"""
 
     # Initialise parameters dictionary
     hyperparameters = {}
@@ -12,7 +13,7 @@ def track(args):
     for key, value in args.items():
 
         # Save hyperparameters
-        if key in ["Split", "Prepare", "Train", "Test"]:
+        if key in ["Split", "Prepare", "Train", "Test", args["Prepare"].optimizer]:
             hyperparameters = {**hyperparameters, **vars(value)}
         # Save project details
         elif key in ["Project"]:
@@ -21,12 +22,9 @@ def track(args):
             continue
 
     # Instantiate experiment
-    experiment = Experiment(project_name=args["Project"].project, 
-    auto_param_logging=True, 
-    auto_metric_logging=True,
-    auto_histogram_weight_logging=True,
-    auto_histogram_gradient_logging=True,
-    auto_histogram_activation_logging=True,)
+    experiment = Experiment(
+        project_name=args["Project"].project, log_code=False, auto_output_logging=False
+    )
 
     # Add tag
     experiment.add_tag(args["Project"].feature)

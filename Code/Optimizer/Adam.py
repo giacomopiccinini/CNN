@@ -1,13 +1,14 @@
 import logging
 from tensorflow.keras.optimizers import Adam
 
+
 def optimizer(**kwargs):
 
-    """ Create Adam optimizer """
+    """Create Adam optimizer"""
 
     try:
         # Create Adam optimizer if correct keywords are passed
-        Optimizer   = Adam(**kwargs)
+        Optimizer = Adam(**kwargs)
 
         # Log the loading
         logging.info("Adam optimizer has been loaded")
@@ -18,4 +19,3 @@ def optimizer(**kwargs):
     except Exception as e:
         # Raise an exception if wrong keywords are passed
         raise e
-

@@ -1,9 +1,10 @@
 import logging
 from tensorflow.keras.optimizers import SGD
 
+
 def optimizer(**kwargs):
 
-    """ Create SGD optimizer """
+    """Create SGD optimizer"""
 
     try:
         # Create Adam optimizer if correct keywords are passed
@@ -18,4 +19,3 @@ def optimizer(**kwargs):
     except Exception as e:
         # Raise an exception if wrong keywords are passed
         raise e
-
