@@ -2,20 +2,21 @@ import numpy as np
 from pathlib import Path
 from yaml import safe_load
 
-class Label():
 
-    """ Load labels """
+class Label:
+
+    """Load labels"""
 
     def __init__(self, path):
 
-        """ Constructor for Label class """
+        """Constructor for Label class"""
 
-        self.path  = path
+        self.path = path
         self.label = self.read()
 
     def read(self):
 
-        """ Read labels"""
+        """Read labels"""
 
         # Retrieve path
         path = Path(self.path)
@@ -28,7 +29,7 @@ class Label():
 
             if extension == ".yaml":
                 label = safe_load(file)
-            
+
             if extension == ".txt":
                 label = file.readline()
 
