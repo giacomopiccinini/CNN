@@ -1,17 +1,17 @@
-from tensorflow.keras.losses import MeanAbsolutePercentageError
+from tensorflow.keras.losses import MeanAbsoluteError
 import logging
 
 
 def loss(**kwargs):
 
-    """Create Mean Absolute Percentage Error (MAPE) loss"""
+    """Create Mean Absolute Error (MAE) loss"""
 
     try:
         # Create loss if correct keywords are passed
-        Loss = MeanAbsolutePercentageError(**kwargs)
+        Loss = MeanAbsoluteError(**kwargs)
 
         # Log the loading
-        logging.info("Mean Absolute Percentage Error loss has been loaded")
+        logging.info("Mean Absolute Error loss has been loaded")
 
         # Return the optimizer
         return Loss
